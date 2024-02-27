@@ -1,0 +1,31 @@
+<!-- <?xml version='1.0' encoding='utf-8'?> -->
+<!DOCTYPE hibernate-configuration PUBLIC
+    "-//Hibernate/Hibernate Configuration DTD//EN"
+    "http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+
+<hibernate-configuration>
+
+    <!-- a SessionFactory instance listed as /jndi/name -->
+    <session-factory>
+
+        <!-- properties -->
+        <property name="connection.driver_class">org.mariadb.jdbc.Driver</property>
+        <property name="connection.url">jdbc:mariadb://localhost:3306/jobdb</property>
+        <property name="connection.username">root</property>
+        <property name="connection.password">root</property>
+        
+        <!-- a partir de aqui es opcional -->
+        <property name="show_sql">true</property> <!-- autom. en false -->
+        <property name="hbm2ddl.auto">create</property>  <!-- puede ser create //update// validate //none -->
+
+        <mapping class="com.entregablehibernate.model.User"/>  
+        <mapping class="com.entregablehibernate.model.Skill"/>
+        <mapping class="com.entregablehibernate.model.LaboralExperiece"/>
+        <mapping class="com.entregablehibernate.model.JobOffer"/>
+        <mapping class="com.entregablehibernate.model.Institution"/>
+        <mapping class="com.entregablehibernate.model.Company"/>
+        <mapping class="com.entregablehibernate.model.Candidature"/>
+         <mapping class="com.entregablehibernate.model.AcademicInfo"/>
+    </session-factory>
+
+</hibernate-configuration>
