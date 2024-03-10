@@ -60,6 +60,13 @@ public class LaboralExperiece {
         this.user = user;
         this.company = company;
     }
+
+    public LaboralExperiece(String jobTitle, String description, String location, Company company) {
+        this.jobTitle = jobTitle;
+        this.description = description;
+        this.location = location;
+        this.company = company;
+    }
     
 
     public LaboralExperiece(LocalDate initDate, boolean current, User user, String jobTitle, String description, String location, LocalDate endDate, Company company) {

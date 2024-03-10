@@ -38,8 +38,10 @@ public class Company {
 
     @Column(name = "descripcion")
     private String description;
-
+    @Column(name = "contraseña")
     private String password;
+    @Column(name = "email")
+    private String email;
 
     public Company() {
     }
@@ -47,6 +49,7 @@ public class Company {
     public Company(String name) {
         this.name = name;
     }
+
     public Company(String name, String password) {
         this.name = name;
         this.password = password;
@@ -98,6 +101,14 @@ public class Company {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
 }

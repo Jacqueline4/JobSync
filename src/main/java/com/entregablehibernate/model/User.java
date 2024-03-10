@@ -7,6 +7,7 @@ package com.entregablehibernate.model;
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -37,14 +38,14 @@ public class User {
     @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinTable(
             name = "user_skills",
-            uniqueConstraints = {
-                @UniqueConstraint(columnNames = {"user_id", "skills_id"})},
+//            uniqueConstraints = {
+//                @UniqueConstraint(columnNames = {"user_id", "skills_id"})},
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "skills_id")
     )
     private List<Skill> skillsList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch =FetchType.EAGER)
     private List<AcademicInfo> academicList = new ArrayList<>();
 
     @Column(name = "telefono")
@@ -53,13 +54,13 @@ public class User {
     @Column(name = "descripcion")
     private String description;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch =FetchType.EAGER)
     private List<LaboralExperiece> laboralExpList = new ArrayList<>();
 
     @Column(name = "correo")
     private String mail;
 
-    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL,fetch =FetchType.EAGER)
     private List<Candidature> candidaturesList = new ArrayList<>();
 
     private String password;
@@ -171,4 +172,10 @@ public class User {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    @Override
+    public String toString() {
+        return "User{" + "id=" + id + ", name=" + name + ", telephone=" + telephone + ", description=" + description + '}';
+    }
+    
 }

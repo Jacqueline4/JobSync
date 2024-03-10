@@ -36,13 +36,13 @@ public class Skill {
     @ManyToMany(mappedBy = "skillsList")
     private List<User> userList = new ArrayList<>();
 
-    @ManyToMany(cascade = CascadeType.ALL)
-    @JoinTable(
-            name = "job_offers_skills",
-            joinColumns = @JoinColumn(name = "jobOffer_id"),
-            inverseJoinColumns = @JoinColumn(name = "skills_id")
-    )
-    private List<JobOffer> jobOfferList = new ArrayList<>();
+//    @ManyToMany(cascade = CascadeType.ALL)
+//    @JoinTable(
+//            name = "job_offers_skills",
+//            joinColumns = @JoinColumn(name = "jobOffer_id"),
+//            inverseJoinColumns = @JoinColumn(name = "skills_id")
+//    )
+//    private List<JobOffer> jobOfferList = new ArrayList<>();
 
     public Skill() {
     }
@@ -79,15 +79,20 @@ public class Skill {
     public Skill(String name, List<User> userList, List<JobOffer> jobOfferList) {
         this.name = name;
         this.userList = userList;
-        this.jobOfferList = jobOfferList;
+//        this.jobOfferList = jobOfferList;
     }
 
-    public List<JobOffer> getJobOfferList() {
-        return jobOfferList;
-    }
+//    public List<JobOffer> getJobOfferList() {
+//        return jobOfferList;
+//    }
+//
+//    public void setJobOfferList(List<JobOffer> jobOfferList) {
+//        this.jobOfferList = jobOfferList;
+//    }
 
-    public void setJobOfferList(List<JobOffer> jobOfferList) {
-        this.jobOfferList = jobOfferList;
+    @Override
+    public String toString() {
+        return "Skill{" + "id=" + id + ", name=" + name + '}';
     }
 
 }

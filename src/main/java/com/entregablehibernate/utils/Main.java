@@ -26,10 +26,12 @@ public class Main {
         UserService us = new UserService();
         JobOffersService jos = new JobOffersService();
         JobOffer jo = new JobOffer();
-        jo.setTittle("titleOfertat¡T");
+        jo.setTittle("ADM");
         Company co = cs.createCompany("patata", "");
         cs.addJobOffer(co, jo);
-        User u = new User("monete", "", 654214, "@dddd.com");
+        User u = new User("monete", 0, "123", "m");
+        User u1 = new User("alex", 0, "123", "a");
+        User u2 = new User("raul", 0, "123", "r");
 
         AcademicInfo ai = new AcademicInfo();
         Institution i = new Institution();
@@ -42,28 +44,35 @@ public class Main {
         le.setCompany(co);
         i.setName("IES Europa");
         ai.setTitle("titulitis II");
-
+        Skill s = new Skill("Perseverante");
         us.createUser(u);
+        us.createUser(u1);
+        us.createUser(u2);
         us.addAcademicInfo(u, ai);
-       us.addAcademicInfo(u, ai, i);
+        us.addAcademicInfo(u1, ai);
+        us.addAcademicInfo(u, ai, i);
         us.addCandidature(u, c);
         us.addCandidature(u, c1);
-        us.addJobExperience(u, le, co);
+        us.addCandidature(u1, c1);
+        us.addCandidature(u2, c1);
+//        us.addJobExperience(u, le, co);
         us.addLaboralExperience(u, le);
+        us.addLaboralExperience(u1, le);
         us.addSkill(u, skill.getName());
-        us.addSkill(u, skill);
+//        us.addSkill(u, skill);
+        us.addSkill(u1, skill);
+        us.addSkill(u1, s);
 //        us.removeUser(u);
 //        cs.removeCompany(co);
 //jos.removeJobOffer(jo);
-JobOffer jo1= new JobOffer();
-jo1.setTittle("oferta Nueva");
+        JobOffer jo1 = new JobOffer();
+        jo1.setTittle("oferta Nueva");
         jos.createJobOffer(jo1);
+        
 
 //        jos.getCandidaturesJobOffers(jo);
-
 //        for (Candidature candidaturesJobOffer : jos.getCandidaturesJobOffers(jo)) {
 //            System.out.println(candidaturesJobOffer);
 //        }
-
     }
 }

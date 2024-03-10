@@ -130,4 +130,17 @@ public class CompanyController implements CompanyDAO {
         }
     }
 
+    public Company login(Company co) {
+        try (Session session = HibernateUtil.getFactory().openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Company> query = cb.createQuery(Company.class);
+            Root<Company> companyTable = query.from(Company.class);
+            query.where(cb.and(cb.equal(companyTable.get("email"), co.getEmail()), cb.equal(companyTable.get("password"), co.getPassword())));
+
+            return session.createQuery(query).getSingleResult();
+        } catch (Exception e) {
+            System.err.println(e);
+            return null;
+        }
+    }
 }

@@ -36,5 +36,6 @@ public interface UsersDAO {
     public List<LaboralExperiece> getUserLaboralExperieces(User u);
 
     public User getUserByName(User u);
-    public boolean login(User u);
+    
+    public User login(User u);
 }

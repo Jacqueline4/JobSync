@@ -4,16 +4,24 @@
  */
 package interfaces;
 
-import com.entregablehibernate.controller.UserController;
+
+import com.entregablehibernate.model.Company;
 import com.entregablehibernate.model.User;
+import com.entregablehibernate.services.CompanyService;
 import com.entregablehibernate.services.UserService;
 import javax.swing.JOptionPane;
+
 
 /**
  *
  * @author jacqueline
  */
 public class Login extends javax.swing.JFrame {
+
+    User u = new User();
+    UserService us = new UserService();
+    Company co = new Company();
+    CompanyService cs= new CompanyService();
 
     /**
      * Creates new form login
@@ -41,6 +49,7 @@ public class Login extends javax.swing.JFrame {
         logEmpresa = new java.awt.Checkbox();
         pass = new javax.swing.JPasswordField();
         button1 = new java.awt.Button();
+        salir = new javax.swing.JButton();
 
         label1.setText("label1");
 
@@ -139,6 +148,13 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        salir.setText("Salir");
+        salir.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                salirActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -150,11 +166,14 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 230, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(37, 37, 37)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                             .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addGroup(layout.createSequentialGroup()
                                 .addGap(185, 185, 185)
-                                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)))))
+                                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 212, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addComponent(salir)
+                                .addGap(16, 16, 16)))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -165,7 +184,9 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(55, 55, 55)
-                .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(button1, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(salir))
                 .addGap(58, 58, 58))
         );
 
@@ -183,28 +204,27 @@ public class Login extends javax.swing.JFrame {
 
     private void loginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginActionPerformed
         // TODO add your handling code here:        
-        User u = new User();
+
         u.setMail(userMail.getText());
         u.setPassword(new String(pass.getPassword()));
-//        User u = new User();
-//        String mail =userMail.getText();
-//        String pwd = new String(pass.getPassword());
-        UserController uc= new UserController();
-//        uc.getUserByMail(u);
-        
-//        u.setMail("jxiang@gmail.com");
-//        u.setPassword("12345");
+
         if (logEmpresa.getState()) {
-            InterfazEmpresa ie = new InterfazEmpresa();
-            ie.setVisible(true);
-            dispose();
+            co.setEmail(userMail.getText());
+            co.setPassword(new String(pass.getPassword()));
+            if (cs.login(co)) {
+                InterfazEmpresa ie = new InterfazEmpresa(co);
+                ie.setVisible(true);
+                dispose();
+            } else {
+                JOptionPane.showMessageDialog(null, "Email o contraseña incorrecta", "ERROR", JOptionPane.ERROR_MESSAGE);
+            }
         } else {
-            if (uc.login(u)==true) {//mail.equals(u.getMail()) && pwd.equals(u.getPassword())
+            if (us.login(u) == true) {//mail.equals(u.getMail()) && pwd.equals(u.getPassword())
                 InterfazUsuario iu = new InterfazUsuario(u);
                 iu.setVisible(true);
                 dispose();
             } else {
-                JOptionPane.showMessageDialog(null, "Usuario o contraseña incorrectos", "ERROR", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Email o contraseña incorrecta", "ERROR", JOptionPane.ERROR_MESSAGE);
             }
         }
     }//GEN-LAST:event_loginActionPerformed
@@ -223,6 +243,11 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         pass.setText("");
     }//GEN-LAST:event_passMouseClicked
+
+    private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_salirActionPerformed
 
     /**
      * @param args the command line arguments
@@ -270,6 +295,7 @@ public class Login extends javax.swing.JFrame {
     private java.awt.Checkbox logEmpresa;
     private java.awt.Button login;
     private javax.swing.JPasswordField pass;
+    private javax.swing.JButton salir;
     private java.awt.TextField userMail;
     // End of variables declaration//GEN-END:variables
 }

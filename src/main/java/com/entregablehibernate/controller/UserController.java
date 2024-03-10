@@ -173,17 +173,17 @@ public class UserController implements UsersDAO {
     }
 
     @Override
-    public boolean login(User u) {
+    public User login(User u) {
         try (Session session = HibernateUtil.getFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<User> query = cb.createQuery(User.class);
             Root<User> userTable = query.from(User.class);
             query.where(cb.and(cb.equal(userTable.get("mail"), u.getMail()), cb.equal(userTable.get("password"), u.getPassword())));
 
-            return true;
+            return session.createQuery(query).getSingleResult();
         } catch (Exception e) {
             System.err.println(e);
-            return false;
+            return null;
         }
     }
 

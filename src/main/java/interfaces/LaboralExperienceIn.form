@@ -43,7 +43,7 @@
                           <Component id="jScrollPane1" pref="365" max="32767" attributes="0"/>
                           <Component id="rSocial" max="32767" attributes="0"/>
                           <Component id="puesto" max="32767" attributes="0"/>
-                          <Component id="fecha" max="32767" attributes="0"/>
+                          <Component id="direccion" max="32767" attributes="0"/>
                       </Group>
                   </Group>
               </Group>
@@ -71,7 +71,7 @@
               <Group type="103" groupAlignment="1" attributes="0">
                   <Component id="jLabel4" min="-2" pref="37" max="-2" attributes="0"/>
                   <Group type="102" alignment="1" attributes="0">
-                      <Component id="fecha" min="-2" pref="25" max="-2" attributes="0"/>
+                      <Component id="direccion" min="-2" pref="25" max="-2" attributes="0"/>
                       <EmptySpace min="8" pref="8" max="-2" attributes="0"/>
                   </Group>
               </Group>
@@ -108,7 +108,7 @@
     </Component>
     <Component class="javax.swing.JLabel" name="jLabel4">
       <Properties>
-        <Property name="text" type="java.lang.String" value="Fecha publicaci&#xf3;n"/>
+        <Property name="text" type="java.lang.String" value="Direccion"/>
       </Properties>
     </Component>
     <Container class="javax.swing.JScrollPane" name="jScrollPane1">
@@ -130,17 +130,23 @@
     </Component>
     <Component class="javax.swing.JTextField" name="puesto">
     </Component>
-    <Component class="javax.swing.JTextField" name="fecha">
+    <Component class="javax.swing.JTextField" name="direccion">
     </Component>
     <Component class="javax.swing.JButton" name="guardar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Guardar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="guardarActionPerformed"/>
+      </Events>
     </Component>
     <Component class="javax.swing.JButton" name="cancelar">
       <Properties>
         <Property name="text" type="java.lang.String" value="Cancelar"/>
       </Properties>
+      <Events>
+        <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="cancelarActionPerformed"/>
+      </Events>
     </Component>
   </SubComponents>
 </Form>

@@ -6,18 +6,23 @@ package interfaces;
 
 import com.entregablehibernate.model.User;
 import com.entregablehibernate.services.UserService;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author jacqueline
  */
-public class Skill extends javax.swing.JFrame {
+public class SkillIn extends javax.swing.JFrame {
+
+    UserService us = new UserService();
+    User u;
 
     /**
      * Creates new form Skill
      */
-    public Skill() {
+    public SkillIn(User u) {
         initComponents();
+        this.u = u;
     }
 
     /**
@@ -98,9 +103,10 @@ public class Skill extends javax.swing.JFrame {
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         // TODO add your handling code here:
-        UserService us= new UserService();
-        User u= new User();
-        us.addSkill(u, textoHab.getText());
+     
+            us.addSkill(u, textoHab.getText());
+            dispose();
+       
     }//GEN-LAST:event_guardarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
@@ -125,20 +131,20 @@ public class Skill extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(Skill.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(SkillIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(Skill.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(SkillIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(Skill.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(SkillIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(Skill.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(SkillIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new Skill().setVisible(true);
+//                new SkillIn().setVisible(true);
 //            }
 //        });
 //    }

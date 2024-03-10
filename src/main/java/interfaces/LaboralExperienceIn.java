@@ -4,17 +4,26 @@
  */
 package interfaces;
 
+import com.entregablehibernate.model.Company;
+import com.entregablehibernate.model.LaboralExperiece;
+import com.entregablehibernate.model.User;
+import com.entregablehibernate.services.UserService;
+
 /**
  *
  * @author jacqueline
  */
-public class LaboralExperience extends javax.swing.JFrame {
+public class LaboralExperienceIn extends javax.swing.JFrame {
+
+    private User u;
+    private UserService us = new UserService();
 
     /**
      * Creates new form LaboralExperience
      */
-    public LaboralExperience() {
+    public LaboralExperienceIn(User u) {
         initComponents();
+        this.u = u;
     }
 
     /**
@@ -34,7 +43,7 @@ public class LaboralExperience extends javax.swing.JFrame {
         descripcion = new javax.swing.JTextArea();
         rSocial = new javax.swing.JTextField();
         puesto = new javax.swing.JTextField();
-        fecha = new javax.swing.JTextField();
+        direccion = new javax.swing.JTextField();
         guardar = new javax.swing.JButton();
         cancelar = new javax.swing.JButton();
 
@@ -46,15 +55,25 @@ public class LaboralExperience extends javax.swing.JFrame {
 
         jLabel3.setText("Puesto");
 
-        jLabel4.setText("Fecha publicación");
+        jLabel4.setText("Direccion");
 
         descripcion.setColumns(20);
         descripcion.setRows(5);
         jScrollPane1.setViewportView(descripcion);
 
         guardar.setText("Guardar");
+        guardar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                guardarActionPerformed(evt);
+            }
+        });
 
         cancelar.setText("Cancelar");
+        cancelar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelarActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -78,7 +97,7 @@ public class LaboralExperience extends javax.swing.JFrame {
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 365, Short.MAX_VALUE)
                             .addComponent(rSocial)
                             .addComponent(puesto)
-                            .addComponent(fecha))))
+                            .addComponent(direccion))))
                 .addContainerGap(76, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
@@ -98,7 +117,7 @@ public class LaboralExperience extends javax.swing.JFrame {
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 37, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(fecha, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(direccion, javax.swing.GroupLayout.PREFERRED_SIZE, 25, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGap(8, 8, 8)))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -113,6 +132,18 @@ public class LaboralExperience extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
+        // TODO add your handling code here:
+        LaboralExperiece le = new LaboralExperiece(puesto.getText(), descripcion.getText(), direccion.getText(), new Company(rSocial.getText()));
+        us.addLaboralExperience(u, le);
+
+    }//GEN-LAST:event_guardarActionPerformed
+
+    private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed
+        // TODO add your handling code here:
+        dispose();
+    }//GEN-LAST:event_cancelarActionPerformed
 
     /**
      * @param args the command line arguments
@@ -131,20 +162,20 @@ public class LaboralExperience extends javax.swing.JFrame {
 //                }
 //            }
 //        } catch (ClassNotFoundException ex) {
-//            java.util.logging.Logger.getLogger(LaboralExperience.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(LaboralExperienceIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (InstantiationException ex) {
-//            java.util.logging.Logger.getLogger(LaboralExperience.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(LaboralExperienceIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (IllegalAccessException ex) {
-//            java.util.logging.Logger.getLogger(LaboralExperience.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(LaboralExperienceIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-//            java.util.logging.Logger.getLogger(LaboralExperience.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//            java.util.logging.Logger.getLogger(LaboralExperienceIn.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
 //        }
 //        //</editor-fold>
 //
 //        /* Create and display the form */
 //        java.awt.EventQueue.invokeLater(new Runnable() {
 //            public void run() {
-//                new LaboralExperience().setVisible(true);
+//                new LaboralExperienceIn().setVisible(true);
 //            }
 //        });
 //    }
@@ -152,7 +183,7 @@ public class LaboralExperience extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton cancelar;
     private javax.swing.JTextArea descripcion;
-    private javax.swing.JTextField fecha;
+    private javax.swing.JTextField direccion;
     private javax.swing.JButton guardar;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;

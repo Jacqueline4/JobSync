@@ -9,7 +9,7 @@ package com.entregablehibernate.utils;
  * @author jacqueline
  */
 public enum WorkDayType {
-    INTERSHIP(1), FULL_TIME(2), CONTRAC(3), PART_TIME(4), TEMPORARY(5);
+    INTERSHIP(0), FULL_TIME(1), CONTRAC(2), PART_TIME(3), TEMPORARY(4);
     private final int value;
 
     WorkDayType(int value) {

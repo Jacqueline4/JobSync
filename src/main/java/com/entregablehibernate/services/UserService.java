@@ -24,15 +24,10 @@ public class UserService {
 
     UserController uc = new UserController();
 
-    public void addJobExperience(User u, LaboralExperiece le, Company co) {
 
-        le.setCompany(co);
-        co.getLaboralExperieceList().add(le);
-        u.getLaboralExpList().add(le);
-        uc.updateUser(u);
-    }
 
-    public void addSkill(User u, String s) {//no
+    public void addSkill(User u, String s) {
+//        User udb = uc.getUserByName(u);
         Skill sk = new Skill();
         sk.setName(s);
         sk.getUserList().add(u);
@@ -45,60 +40,82 @@ public class UserService {
     }
 
     public void addAcademicInfo(User u, AcademicInfo ai) {
-        u.getAcademicList().add(ai);
-        uc.updateUser(u);
+        User udb = uc.getUserByName(u);
+        ai.setUser(udb);
+        udb.getAcademicList().add(ai);
+        uc.updateUser(udb);
     }
 
-    public void addCandidature(User u, Candidature c) {//SI
+    public void addCandidature(User u, Candidature c) {
+//        User udb = uc.getUserByName(u);
         u.getCandidaturesList().add(c);
         uc.updateUser(u);
     }
 
     public void addCandidature(User u, Candidature c, JobOffer jo) {
+        User udb = uc.getUserByName(u);
         c.setJobOffer(jo);
         jo.getCandidaturesList().add(c);
-        u.getCandidaturesList().add(c);
-        uc.updateUser(u);
+        udb.getCandidaturesList().add(c);
+        uc.updateUser(udb);
     }
 
     public void addSkill(User u, Skill s) {//NO..
-        
+// User udb = uc.getUserByName(u);
         s.getUserList().add(u);
         u.getSkillsList().add(s);
         uc.updateUser(u);
     }
-
     public void addLaboralExperience(User u, LaboralExperiece le) {//si funciona
-        u.getLaboralExpList().add(le);
-        uc.updateUser(u);
+        User udb = uc.getUserByName(u);
+        le.setUser(udb);
+        udb.getLaboralExpList().add(le);
+        uc.updateUser(udb);
     }
+//        public void addJobExperience(User u, LaboralExperiece le, Company co) {
+//
+//        User udb = uc.getUserByName(u);
+//        le.setCompany(co);
+//        co.getLaboralExperieceList().add(le);
+//        udb.getLaboralExpList().add(le);
+//        uc.updateUser(udb);
+//    }
 
     public void addAcademicInfo(User u, AcademicInfo ai, Institution i) {
+        User udb = uc.getUserByName(u);
         ai.setInstitution(i);
         i.getAcademicList().add(ai);
-        u.getAcademicList().add(ai);
+        udb.getAcademicList().add(ai);
 
-        uc.updateUser(u);
+        uc.updateUser(udb);
     }
 
     public void addCandidature(User u, JobOffer jo, String s, String st) {//REVISAR
-
+        User udb = uc.getUserByName(u);
         Candidature c = new Candidature();
         c.setConverLetterPath(st);
         c.setCvPath(st);
         jo.getCandidaturesList().add(c);
 
-        uc.updateUser(u);
+        uc.updateUser(udb);
     }
 
     public void addCandidature(User u, JobOffer jo) {
+        User udb = uc.getUserByName(u);
         Candidature c = new Candidature();
         c.setJobOffer(jo);
-        u.getCandidaturesList().add(c);
+        udb.getCandidaturesList().add(c);
+ uc.updateUser(udb);
     }
 
     public void removeUser(User u) {
-        uc.removeUser(u);
+         User udb = uc.getUserByName(u);
+        uc.removeUser(udb);
+    }
+
+    public void updateUser(User u) {
+         User udb = uc.getUserByName(u);
+        uc.updateUser(udb);
     }
 
     public void createUser(User u) {
@@ -111,4 +128,17 @@ public class UserService {
         User u = new User(name, description, telephone, mail);
         return u;
     }
+
+    public boolean login(User u) {
+
+        User dbUser = uc.login(u);
+        if (dbUser != null) {
+            if (u.getMail().equals(dbUser.getMail()) && u.getPassword().equals(dbUser.getPassword())) {
+
+                return true;
+            }
+        }
+        return false;
+    }
+
 }

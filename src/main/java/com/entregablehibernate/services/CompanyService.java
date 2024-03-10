@@ -21,6 +21,9 @@ public class CompanyService {
     public void createCompany(Company co) {
         cc.createCompany(co);
     }
+    public void updateCompany(Company co) {
+        cc.updateCompany(co);
+    }
 
     public void removeCompany(Company co) {
         cc.removeCompany(co);
@@ -46,5 +49,17 @@ public class CompanyService {
         cc.createCompany(co);
         return co;
     }
+       public boolean login(Company co) {
+
+        Company dbCompany = cc.login(co);
+        if (dbCompany != null) {
+            if (co.getEmail().equals(dbCompany.getEmail()) && co.getPassword().equals(dbCompany.getPassword())) {
+                
+                return true;
+            }
+        }
+        return false;
+    }
+
 
 }

@@ -6,6 +6,7 @@ package interfaces;
 
 import com.entregablehibernate.model.User;
 import com.entregablehibernate.services.UserService;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -152,8 +153,8 @@ public class CrearCuenta extends javax.swing.JFrame {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
-        
-        CrearCuentaEmpresa ce= new CrearCuentaEmpresa();
+
+        CrearCuentaEmpresa ce = new CrearCuentaEmpresa();
         ce.setVisible(true);
         dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -164,14 +165,24 @@ public class CrearCuenta extends javax.swing.JFrame {
 
     private void crearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_crearActionPerformed
         // TODO add your handling code here:
-        int tel = Integer.parseInt(textTelefono.getText());
-        String pass= new String (textPass.getPassword());
-        User u= new User(textNombre.getText(), tel, pass, textMmail.getText());
-        UserService us= new UserService();
-        us.createUser(u);
-        Login l = new Login();
-        l.setVisible(true);
-        dispose();
+        int tel;
+        User u;
+        String pass;
+        try {
+            tel = Integer.parseInt(textTelefono.getText());
+            pass = new String(textPass.getPassword());
+            u = new User(textNombre.getText(), tel, pass, textMmail.getText());
+            UserService us = new UserService();
+            us.createUser(u);
+            Login l = new Login();
+            l.setVisible(true);
+            dispose();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Introduzca un numero de teléfono válido", "ERROR", JOptionPane.ERROR_MESSAGE);
+            textTelefono.setText("");
+        }
+
+
     }//GEN-LAST:event_crearActionPerformed
 
     private void backActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backActionPerformed

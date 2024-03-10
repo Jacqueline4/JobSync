@@ -9,7 +9,7 @@ package com.entregablehibernate.utils;
  * @author jacqueline
  */
 public enum Status {
-    REJECTED(1), PENDING(2), ACCEPTED(3);
+    REJECTED(0), PENDING(1), ACCEPTED(2);
     private final int value;
 
     Status(int value) {

@@ -5,6 +5,7 @@
 package interfaces;
 
 import com.entregablehibernate.model.AcademicInfo;
+import com.entregablehibernate.model.Institution;
 import com.entregablehibernate.model.User;
 import com.entregablehibernate.services.UserService;
 import java.time.LocalDate;
@@ -15,11 +16,15 @@ import java.time.LocalDate;
  */
 public class AcademicInfoInter extends javax.swing.JFrame {
 
+    private User u;
+    private UserService us = new UserService();
+
     /**
      * Creates new form AcademicInfo
      */
-    public AcademicInfoInter() {
+    public AcademicInfoInter(User u) {
         initComponents();
+        this.u = u;
     }
 
     /**
@@ -46,6 +51,18 @@ public class AcademicInfoInter extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        fechaIni.setText("2000-10-31");
+        fechaIni.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fechaIniMouseClicked(evt);
+            }
+        });
+        fechaIni.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                fechaIniActionPerformed(evt);
+            }
+        });
+
         titulo.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 tituloActionPerformed(evt);
@@ -71,6 +88,13 @@ public class AcademicInfoInter extends javax.swing.JFrame {
         jLabel3.setText("Fecha Inicio");
 
         jLabel4.setText("Título");
+
+        fechaFin.setText("2000-10-31");
+        fechaFin.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                fechaFinMouseClicked(evt);
+            }
+        });
 
         jLabel5.setText("Fecha Fin");
 
@@ -170,12 +194,29 @@ public class AcademicInfoInter extends javax.swing.JFrame {
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         // TODO add your handling code here:
-        UserService us= new UserService();
-        User u= new User();
-        
-//        AcademicInfo ai = new AcademicInfo(fechaIni.getText(), titulo.getText(), fechaFin.getText(), centro..getText(), puntuacion.getText());
-//        us.addAcademicInfo(u, ai);
+        LocalDate fInicio= LocalDate.parse(fechaIni.getText());
+        LocalDate fFin= LocalDate.parse(fechaFin.getText());
+        float nota= Float.parseFloat(puntuacion.getText());
+        Institution i = new Institution(centro.getName());
+        AcademicInfo ai = new AcademicInfo(fInicio,titulo.getText(), fFin, i, nota);
+     
+        us.addAcademicInfo(u, ai);
     }//GEN-LAST:event_guardarActionPerformed
+
+    private void fechaIniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaIniActionPerformed
+        // TODO add your handling code here:
+
+    }//GEN-LAST:event_fechaIniActionPerformed
+
+    private void fechaFinMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaFinMouseClicked
+        // TODO add your handling code here:
+        fechaFin.setText("");
+    }//GEN-LAST:event_fechaFinMouseClicked
+
+    private void fechaIniMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_fechaIniMouseClicked
+        // TODO add your handling code here:
+        fechaIni.setText("");
+    }//GEN-LAST:event_fechaIniMouseClicked
 
     /**
      * @param args the command line arguments

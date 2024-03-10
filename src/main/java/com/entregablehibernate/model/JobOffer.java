@@ -39,8 +39,8 @@ public class JobOffer {
     @Column(name = "tipo_contrato")
     private WorkDayType workDayType;//private WorkDayType workDayType;//int
 
-    @ManyToMany(mappedBy = "jobOfferList", cascade = CascadeType.ALL)//, cascade = CascadeType.PERSIST
-    private List<Skill> skillsList = new ArrayList<>();
+//    @ManyToMany(mappedBy = "jobOfferList", cascade = CascadeType.ALL)//, cascade = CascadeType.PERSIST
+//    private List<Skill> skillsList = new ArrayList<>();
     
     @ManyToOne
     @JoinColumn(name = "empresa_id")
@@ -70,10 +70,21 @@ public class JobOffer {
     public JobOffer() {
     }
 
+    public JobOffer(String title, WorkDayType workDayType, boolean open, int maxSalary, int minSalary, int requiredCandidates, String location, String details) {
+        this.title = title;
+        this.workDayType = workDayType;
+        this.open = open;
+        this.maxSalary = maxSalary;
+        this.minSalary = minSalary;
+        this.requiredCandidates = requiredCandidates;
+        this.location = location;
+        this.details = details;
+    }
+
     public JobOffer(String tittle, WorkDayType workDayType, List<Skill> skillsList, Company company, boolean open, int maxSalary, int minSalary, int requiredCandidates, String location, String details, List<Candidature> candidaturesList) {
         this.title = tittle;
         this.workDayType = workDayType;
-        this.skillsList = skillsList;
+//        this.skillsList = skillsList;
         this.company = company;
         this.open = open;
         this.maxSalary = maxSalary;
@@ -139,13 +150,13 @@ public class JobOffer {
         this.workDayType = workDayType;
     }
 
-    public List<Skill> getSkillsList() {
-        return skillsList;
-    }
-
-    public void setSkillsList(List<Skill> skillsList) {
-        this.skillsList = skillsList;
-    }
+//    public List<Skill> getSkillsList() {
+//        return skillsList;
+//    }
+//
+//    public void setSkillsList(List<Skill> skillsList) {
+//        this.skillsList = skillsList;
+//    }
 
     public String getLocation() {
         return location;

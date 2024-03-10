@@ -134,6 +134,7 @@ public class CrearCuentaEmpresa extends javax.swing.JFrame {
         // TODO add your handling code here:
         String pass= new String (textPass.getPassword());
         Company c= new Company(textNombre.getText(), pass);
+        c.setEmail(textMmail.getText());
         CompanyService cs= new CompanyService();
         cs.createCompany(c);
         Login l = new Login();
