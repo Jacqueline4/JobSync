@@ -9,6 +9,7 @@ import com.entregablehibernate.model.Company;
 import com.entregablehibernate.model.User;
 import com.entregablehibernate.services.CompanyService;
 import com.entregablehibernate.services.UserService;
+import com.entregablehibernate.utils.HibernateUtil;
 import javax.swing.JOptionPane;
 
 
@@ -247,6 +248,7 @@ public class Login extends javax.swing.JFrame {
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
         // TODO add your handling code here:
         dispose();
+        HibernateUtil.shutdown();
     }//GEN-LAST:event_salirActionPerformed
 
     /**

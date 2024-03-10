@@ -13,6 +13,7 @@ import com.entregablehibernate.model.JobOffer;
 import com.entregablehibernate.model.LaboralExperiece;
 import com.entregablehibernate.model.Skill;
 import com.entregablehibernate.model.User;
+import java.time.LocalDate;
 import java.util.List;
 import org.checkerframework.checker.units.qual.A;
 
@@ -24,15 +25,13 @@ public class UserService {
 
     UserController uc = new UserController();
 
-
-
     public void addSkill(User u, String s) {
-//        User udb = uc.getUserByName(u);
+        User udb = uc.login(u);
         Skill sk = new Skill();
         sk.setName(s);
-        sk.getUserList().add(u);
-        u.getSkillsList().add(sk);
-        uc.updateUser(u);
+        sk.getUserList().add(udb);
+        udb.getSkillsList().add(sk);
+        uc.updateUser(udb);
     }
 
     public void printUserInfo(User u) {
@@ -40,20 +39,20 @@ public class UserService {
     }
 
     public void addAcademicInfo(User u, AcademicInfo ai) {
-        User udb = uc.getUserByName(u);
+        User udb = uc.login(u);
         ai.setUser(udb);
         udb.getAcademicList().add(ai);
         uc.updateUser(udb);
     }
 
     public void addCandidature(User u, Candidature c) {
-//        User udb = uc.getUserByName(u);
-        u.getCandidaturesList().add(c);
-        uc.updateUser(u);
+        User udb = uc.login(u);
+        udb.getCandidaturesList().add(c);
+        uc.updateUser(udb);
     }
 
     public void addCandidature(User u, Candidature c, JobOffer jo) {
-        User udb = uc.getUserByName(u);
+        User udb = uc.login(u);
         c.setJobOffer(jo);
         jo.getCandidaturesList().add(c);
         udb.getCandidaturesList().add(c);
@@ -66,9 +65,11 @@ public class UserService {
         u.getSkillsList().add(s);
         uc.updateUser(u);
     }
+
     public void addLaboralExperience(User u, LaboralExperiece le) {//si funciona
-        User udb = uc.getUserByName(u);
+        User udb = uc.login(u);
         le.setUser(udb);
+        le.setCompany(le.getCompany());
         udb.getLaboralExpList().add(le);
         uc.updateUser(udb);
     }
@@ -82,16 +83,15 @@ public class UserService {
 //    }
 
     public void addAcademicInfo(User u, AcademicInfo ai, Institution i) {
-        User udb = uc.getUserByName(u);
+        User udb = uc.login(u);
         ai.setInstitution(i);
         i.getAcademicList().add(ai);
         udb.getAcademicList().add(ai);
-
         uc.updateUser(udb);
     }
 
     public void addCandidature(User u, JobOffer jo, String s, String st) {//REVISAR
-        User udb = uc.getUserByName(u);
+        User udb = uc.login(u);
         Candidature c = new Candidature();
         c.setConverLetterPath(st);
         c.setCvPath(st);
@@ -101,20 +101,20 @@ public class UserService {
     }
 
     public void addCandidature(User u, JobOffer jo) {
-        User udb = uc.getUserByName(u);
+        User udb = uc.login(u);
         Candidature c = new Candidature();
         c.setJobOffer(jo);
         udb.getCandidaturesList().add(c);
- uc.updateUser(udb);
+        uc.updateUser(udb);
     }
 
     public void removeUser(User u) {
-         User udb = uc.getUserByName(u);
+        User udb = uc.login(u);
         uc.removeUser(udb);
     }
 
     public void updateUser(User u) {
-         User udb = uc.getUserByName(u);
+        User udb = uc.login(u);
         uc.updateUser(udb);
     }
 
@@ -141,4 +141,48 @@ public class UserService {
         return false;
     }
 
+    public String printLaboralExp() {
+        List<Object[]> experienciaLabUser = uc.getLaboralE();
+        String informacion = "";
+        for (Object[] objects : experienciaLabUser) {
+            String nombreEmpresa = (String) objects[0];
+            String puesto = (String) objects[1];
+            LocalDate fechaInicio = (LocalDate) objects[2];
+            LocalDate fechaFin = (LocalDate) objects[3];
+            String desc = (String) objects[4];
+
+            informacion += ("Razón social: " + nombreEmpresa + "\n");
+            informacion += ("Periodo: " + fechaInicio + " - " + fechaFin + "\n");
+            informacion += ("Puesto: " + puesto + "\n");
+            informacion += ("Descripción: " + desc + "\n\n");
+
+        }
+        return informacion;
+    }
+    public String printAcademic() {
+        List<Object[]> experienciaLabUser = uc.getAcademicIn();
+        String informacion = "";
+        for (Object[] objects : experienciaLabUser) {
+            String nombreInstitucion = (String) objects[0];
+            String titulo = (String) objects[1];
+            LocalDate fechaInicio = (LocalDate) objects[2];
+            LocalDate fechaFin = (LocalDate) objects[3];
+            Float desc = (Float) objects[4];
+
+            informacion += ("Razón social: " + nombreInstitucion + "\n");
+            informacion += ("Periodo: " + fechaInicio + " - " + fechaFin + "\n");
+            informacion += ("Título: " + titulo + "\n");
+            informacion += ("Puntuación: " + desc + "\n\n");
+
+        }
+        return informacion;
+    }
+        public String printSkills() {
+        List<Skill> skillList = uc.getUserSkills();
+        String informacion = "";
+            for (Skill skill : skillList) {
+                informacion+=skill+"\t";
+            }
+        return informacion;
+    }
 }

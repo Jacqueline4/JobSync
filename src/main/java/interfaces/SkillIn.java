@@ -103,10 +103,12 @@ public class SkillIn extends javax.swing.JFrame {
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         // TODO add your handling code here:
-     
+        try {
             us.addSkill(u, textoHab.getText());
             dispose();
-       
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_guardarActionPerformed
 
     private void cancelarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelarActionPerformed

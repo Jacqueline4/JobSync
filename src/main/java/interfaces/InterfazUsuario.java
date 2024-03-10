@@ -25,23 +25,25 @@ public class InterfazUsuario extends javax.swing.JFrame {
      *
      * @param u
      */
-
     public InterfazUsuario(User u) {
         this.u = u;
         initComponents();
-        experienciaArea.setText(listToString(u.getLaboralExpList()));
-        academicArea.setText(listToString(u.getAcademicList()));
-        skillArea.setText(listToString(u.getSkillsList()));
+        User udb=uc.login(u);
+        nombre.setText(udb.getName());
+        telefono.setText(Integer.toString(udb.getTelephone()));
+        email.setText(udb.getMail());
+        experienciaArea.setText(us.printLaboralExp());
+        academicArea.setText(us.printAcademic());
+        skillArea.setText(us.printSkills());
     }
 
-    public String listToString(List get) {
-         StringBuilder conjunto = new StringBuilder();
-        for (Object object : get) {
-            conjunto.append(object).append("\n");
-        }
-        return conjunto.toString();
-    }
-
+//    public String listToString(List get) {
+//         StringBuilder conjunto = new StringBuilder();
+//        for (Object object : get) {
+//            conjunto.append(object).append("\n");
+//        }
+//        return conjunto.toString();
+//    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -367,8 +369,16 @@ public class InterfazUsuario extends javax.swing.JFrame {
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         // TODO add your handling code here:
-        us.updateUser(u);
-        dispose();
+        try {
+            us.updateUser(u);
+            
+            experienciaArea.setText(us.printLaboralExp());
+            academicArea.setText(us.printAcademic());
+            skillArea.setText(us.printSkills());
+
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_updateActionPerformed
 
     /**

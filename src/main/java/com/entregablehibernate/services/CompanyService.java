@@ -22,11 +22,13 @@ public class CompanyService {
         cc.createCompany(co);
     }
     public void updateCompany(Company co) {
-        cc.updateCompany(co);
+        Company codb=cc.login(co);
+        cc.updateCompany(codb);
     }
 
     public void removeCompany(Company co) {
-        cc.removeCompany(co);
+        Company codb=cc.login(co);
+        cc.removeCompany(codb);
     }
 
     public Company createCompany(String s) {
@@ -39,9 +41,10 @@ public class CompanyService {
     }
 
     public void addJobOffer(Company co, JobOffer jo) {
-        jo.setCompany(co);
-        co.getJobOffersList().add(jo);
-        cc.updateCompany(co);
+        Company codb=cc.login(co);
+        jo.setCompany(codb);
+        codb.getJobOffersList().add(jo);
+        cc.updateCompany(codb);
     }
 
     public Company createCompany(String s, String st) {

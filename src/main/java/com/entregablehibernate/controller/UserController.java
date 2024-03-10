@@ -7,6 +7,8 @@ package com.entregablehibernate.controller;
 import com.entregablehibernate.dao.UsersDAO;
 import com.entregablehibernate.model.AcademicInfo;
 import com.entregablehibernate.model.Candidature;
+import com.entregablehibernate.model.Company;
+import com.entregablehibernate.model.Institution;
 import com.entregablehibernate.model.LaboralExperiece;
 import com.entregablehibernate.model.Skill;
 import com.entregablehibernate.model.User;
@@ -85,13 +87,13 @@ public class UserController implements UsersDAO {
     }
 
     @Override
-    public List<Skill> getUserSkills(User u) {
+    public List<Skill> getUserSkills() {
         try (Session session = HibernateUtil.getFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Skill> query = cb.createQuery(Skill.class);
             Root<Skill> skillTable = query.from(Skill.class);
             Join<Skill, User> userTable = skillTable.join("userList");
-            query.where(cb.equal(userTable, u));
+//            query.where(cb.equal(userTable, u));
             // es la simplificacion de userTable.get("id"), u.getId())           
             return session.createQuery(query).getResultList();
         }
@@ -186,5 +188,40 @@ public class UserController implements UsersDAO {
             return null;
         }
     }
+    public List<Object[]> getLaboralE() { 
+        try (Session session = HibernateUtil.getFactory().openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Object[]> query = cb.createQuery(Object[].class);
+            Root<User> userTable = query.from(User.class);
+            Join<User, LaboralExperiece> laboralExpTable = userTable.join("laboralExpList");
+            Join<LaboralExperiece, Company> companyTable = laboralExpTable.join("company");
+//            query.where(cb.equal(institutionTable, le));
+            query.multiselect(companyTable.get("name"),
+                    laboralExpTable.get("jobTitle"),
+                    laboralExpTable.get("initDate"),
+                    laboralExpTable.get("endDate"),
+                    laboralExpTable.get("description")
+            );
 
+            return session.createQuery(query).getResultList();
+        }
+    }
+        public List<Object[]> getAcademicIn() { 
+        try (Session session = HibernateUtil.getFactory().openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Object[]> query = cb.createQuery(Object[].class);
+            Root<User> userTable = query.from(User.class);
+            Join<User, AcademicInfo> academicTable = userTable.join("academicList");
+            Join<AcademicInfo, Institution> institutionTable = academicTable.join("institution");
+            query.multiselect(institutionTable.get("name"),
+                    academicTable.get("title"),
+                    academicTable.get("initDate"),
+                    academicTable.get("endDate"),
+                    academicTable.get("meanScore")
+            );
+
+            return session.createQuery(query).getResultList();
+        }
+    }
+ 
 }

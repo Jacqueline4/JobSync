@@ -35,11 +35,9 @@ public class User {
     @Column(name = "nombre")//por si en la bbdd la columna se llama nombre
     private String name;
 
-    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
+    @ManyToMany(cascade = {CascadeType.PERSIST, CascadeType.MERGE},fetch =FetchType.EAGER)
     @JoinTable(
             name = "user_skills",
-//            uniqueConstraints = {
-//                @UniqueConstraint(columnNames = {"user_id", "skills_id"})},
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "skills_id")
     )

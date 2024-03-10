@@ -194,13 +194,18 @@ public class AcademicInfoInter extends javax.swing.JFrame {
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         // TODO add your handling code here:
-        LocalDate fInicio= LocalDate.parse(fechaIni.getText());
-        LocalDate fFin= LocalDate.parse(fechaFin.getText());
-        float nota= Float.parseFloat(puntuacion.getText());
-        Institution i = new Institution(centro.getName());
-        AcademicInfo ai = new AcademicInfo(fInicio,titulo.getText(), fFin, i, nota);
-     
-        us.addAcademicInfo(u, ai);
+        try {
+            LocalDate fInicio = LocalDate.parse(fechaIni.getText());
+            LocalDate fFin = LocalDate.parse(fechaFin.getText());
+            float nota = Float.parseFloat(puntuacion.getText());
+            Institution i = new Institution(centro.getName());
+            AcademicInfo ai = new AcademicInfo(fInicio, titulo.getText(), fFin, i, nota);
+
+            us.addAcademicInfo(u, ai);
+            dispose();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }//GEN-LAST:event_guardarActionPerformed
 
     private void fechaIniActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_fechaIniActionPerformed

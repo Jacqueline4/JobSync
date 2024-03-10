@@ -49,7 +49,7 @@ public class LaboralExperiece {
     @Column(name = "fechaFin")
     private LocalDate endDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "empresa_id")
     private Company company;
 
@@ -65,6 +65,15 @@ public class LaboralExperiece {
         this.jobTitle = jobTitle;
         this.description = description;
         this.location = location;
+        this.company = company;
+    }
+
+    public LaboralExperiece(LocalDate initDate, String jobTitle, String description, String location, LocalDate endDate, Company company) {
+        this.initDate = initDate;
+        this.jobTitle = jobTitle;
+        this.description = description;
+        this.location = location;
+        this.endDate = endDate;
         this.company = company;
     }
     
