@@ -9,6 +9,7 @@ import com.entregablehibernate.model.Institution;
 import com.entregablehibernate.model.User;
 import com.entregablehibernate.services.UserService;
 import java.time.LocalDate;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -194,16 +195,36 @@ public class AcademicInfoInter extends javax.swing.JFrame {
 
     private void guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_guardarActionPerformed
         // TODO add your handling code here:
+        
+        /*
+           int tel;
+        User u;
+        String pass;
+        try {
+            tel = Integer.parseInt(textTelefono.getText());
+            pass = new String(textPass.getPassword());
+            u = new User(textNombre.getText(), tel, pass, textMmail.getText());
+            UserService us = new UserService();
+            us.createUser(u);
+            Login l = new Login();
+            l.setVisible(true);
+            dispose();
+        } catch (NumberFormatException e) {
+            JOptionPane.showMessageDialog(null, "Introduzca un numero de teléfono válido", "ERROR", JOptionPane.ERROR_MESSAGE);
+            textTelefono.setText("");
+        }
+        */
         try {
             LocalDate fInicio = LocalDate.parse(fechaIni.getText());
             LocalDate fFin = LocalDate.parse(fechaFin.getText());
             float nota = Float.parseFloat(puntuacion.getText());
-            Institution i = new Institution(centro.getName());
+            Institution i = new Institution(centro.getText());
             AcademicInfo ai = new AcademicInfo(fInicio, titulo.getText(), fFin, i, nota);
-
             us.addAcademicInfo(u, ai);
             dispose();
         } catch (Exception e) {
+             JOptionPane.showMessageDialog(null, "Error formato fecha y/o calificación", "ERROR", JOptionPane.ERROR_MESSAGE);
+            puntuacion.setText("");
             e.printStackTrace();
         }
     }//GEN-LAST:event_guardarActionPerformed

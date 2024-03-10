@@ -121,7 +121,7 @@ public class CompanyController implements CompanyDAO {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<JobOffer> query = cb.createQuery(JobOffer.class);
             Root<Company> companyTable = query.from(Company.class);
-            Join<JobOffer, Company> jobOffTable = companyTable.join("jobOfferList");
+            Join<JobOffer, Company> jobOffTable = companyTable.join("jobOffersList");
             query.where(cb.equal(companyTable, company));
             return session.createQuery(query).getResultList();
         } catch (Exception e) {

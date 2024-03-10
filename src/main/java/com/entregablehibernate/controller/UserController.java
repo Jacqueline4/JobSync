@@ -9,6 +9,7 @@ import com.entregablehibernate.model.AcademicInfo;
 import com.entregablehibernate.model.Candidature;
 import com.entregablehibernate.model.Company;
 import com.entregablehibernate.model.Institution;
+import com.entregablehibernate.model.JobOffer;
 import com.entregablehibernate.model.LaboralExperiece;
 import com.entregablehibernate.model.Skill;
 import com.entregablehibernate.model.User;
@@ -87,13 +88,13 @@ public class UserController implements UsersDAO {
     }
 
     @Override
-    public List<Skill> getUserSkills() {
+    public List<Skill> getUserSkills(User u) {
         try (Session session = HibernateUtil.getFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Skill> query = cb.createQuery(Skill.class);
             Root<Skill> skillTable = query.from(Skill.class);
             Join<Skill, User> userTable = skillTable.join("userList");
-//            query.where(cb.equal(userTable, u));
+            query.where(cb.equal(userTable, u));
             // es la simplificacion de userTable.get("id"), u.getId())           
             return session.createQuery(query).getResultList();
         }
@@ -188,14 +189,15 @@ public class UserController implements UsersDAO {
             return null;
         }
     }
-    public List<Object[]> getLaboralE() { 
+
+    public List<Object[]> getLaboralE(User u) {
         try (Session session = HibernateUtil.getFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Object[]> query = cb.createQuery(Object[].class);
             Root<User> userTable = query.from(User.class);
             Join<User, LaboralExperiece> laboralExpTable = userTable.join("laboralExpList");
             Join<LaboralExperiece, Company> companyTable = laboralExpTable.join("company");
-//            query.where(cb.equal(institutionTable, le));
+            query.where(cb.equal(userTable, u));
             query.multiselect(companyTable.get("name"),
                     laboralExpTable.get("jobTitle"),
                     laboralExpTable.get("initDate"),
@@ -206,13 +208,15 @@ public class UserController implements UsersDAO {
             return session.createQuery(query).getResultList();
         }
     }
-        public List<Object[]> getAcademicIn() { 
+
+    public List<Object[]> getAcademicIn(User u) {
         try (Session session = HibernateUtil.getFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Object[]> query = cb.createQuery(Object[].class);
             Root<User> userTable = query.from(User.class);
             Join<User, AcademicInfo> academicTable = userTable.join("academicList");
             Join<AcademicInfo, Institution> institutionTable = academicTable.join("institution");
+            query.where(cb.equal(userTable, u));
             query.multiselect(institutionTable.get("name"),
                     academicTable.get("title"),
                     academicTable.get("initDate"),
@@ -223,5 +227,24 @@ public class UserController implements UsersDAO {
             return session.createQuery(query).getResultList();
         }
     }
- 
+
+    public List<Object[]> getCandida(User u) {
+        try (Session session = HibernateUtil.getFactory().openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<Object[]> query = cb.createQuery(Object[].class);
+            Root<User> userTable = query.from(User.class);
+            Join<User, Candidature> candidatureTable = userTable.join("candidaturesList");
+            Join<Candidature, JobOffer> jobOfferTable = candidatureTable.join("jobOffer");
+            Join<JobOffer, Company> companyTable = jobOfferTable.join("company");
+            query.where(cb.equal(userTable, u));
+            query.multiselect(companyTable.get("name"),
+                    jobOfferTable.get("title"),
+                    jobOfferTable.get("minSalary"),
+                    jobOfferTable.get("maxSalary"),
+                    jobOfferTable.get("location")
+            );
+
+            return session.createQuery(query).getResultList();
+        }
+    }
 }

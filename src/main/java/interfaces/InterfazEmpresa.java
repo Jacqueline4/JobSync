@@ -4,8 +4,10 @@
  */
 package interfaces;
 
+import com.entregablehibernate.controller.CompanyController;
 import com.entregablehibernate.model.Company;
 import com.entregablehibernate.services.CompanyService;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -15,6 +17,7 @@ public class InterfazEmpresa extends javax.swing.JFrame {
 
     Company c;
     CompanyService cs = new CompanyService();
+    CompanyController cc = new CompanyController();
 
     /**
      * Creates new form InterfazEmpresa
@@ -22,6 +25,11 @@ public class InterfazEmpresa extends javax.swing.JFrame {
     public InterfazEmpresa(Company c) {
         initComponents();
         this.c = c;
+        Company cdb = cc.login(c);
+        nombre.setText(cdb.getName());
+        email.setText(cdb.getEmail());
+        desciption.setText(cdb.getDescription());
+        ofertas.setText(cs.printJobOffers(cdb));
     }
 
     /**
@@ -37,14 +45,15 @@ public class InterfazEmpresa extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         nombre = new javax.swing.JTextField();
-        telefono = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
+        desciption = new javax.swing.JTextField();
         update = new javax.swing.JButton();
         delete = new javax.swing.JButton();
         jScrollPane1 = new javax.swing.JScrollPane();
         ofertas = new javax.swing.JTextArea();
         mostrar = new javax.swing.JButton();
         salir = new javax.swing.JButton();
+        ofertaPuesto = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -60,9 +69,9 @@ public class InterfazEmpresa extends javax.swing.JFrame {
 
         jPanel1.setBorder(javax.swing.BorderFactory.createMatteBorder(1, 1, 1, 1, new java.awt.Color(204, 0, 204)));
 
-        telefono.setText("telefono");
+        email.setText("telefono");
 
-        email.setText("email");
+        desciption.setText("email");
 
         update.setText("Actualizar");
         update.addActionListener(new java.awt.event.ActionListener() {
@@ -86,8 +95,8 @@ public class InterfazEmpresa extends javax.swing.JFrame {
                 .addContainerGap()
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(nombre, javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(desciption, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(email, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(telefono, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addComponent(update)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -101,9 +110,9 @@ public class InterfazEmpresa extends javax.swing.JFrame {
                 .addGap(46, 46, 46)
                 .addComponent(nombre, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(31, 31, 31)
-                .addComponent(telefono, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
                 .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(desciption, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 34, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(update)
@@ -113,15 +122,26 @@ public class InterfazEmpresa extends javax.swing.JFrame {
 
         ofertas.setColumns(20);
         ofertas.setRows(5);
-        ofertas.setText("Aqui pretendo poder hacer click y te lleve a los candidatos");
         jScrollPane1.setViewportView(ofertas);
 
         mostrar.setText("Mostrar candidatos");
+        mostrar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mostrarActionPerformed(evt);
+            }
+        });
 
         salir.setText("Salir");
         salir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 salirActionPerformed(evt);
+            }
+        });
+
+        ofertaPuesto.setText("Introduce el nombre del puesto");
+        ofertaPuesto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                ofertaPuestoMousePressed(evt);
             }
         });
 
@@ -133,20 +153,22 @@ public class InterfazEmpresa extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(168, 168, 168)
-                        .addComponent(addLaboral))
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(401, 401, 401)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(mostrar)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addComponent(salir)
-                                .addGap(13, 13, 13))))
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 367, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(14, Short.MAX_VALUE))
+                        .addComponent(ofertaPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(mostrar))
+                    .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                            .addGap(388, 388, 388)
+                            .addComponent(salir))
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addGroup(layout.createSequentialGroup()
+                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 224, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(210, 210, 210)
+                                .addComponent(addLaboral))
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 506, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -154,13 +176,15 @@ public class InterfazEmpresa extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 43, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(addLaboral))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 197, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
-                        .addComponent(mostrar))
+                        .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 192, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(34, 34, 34)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(mostrar)
+                            .addComponent(ofertaPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 32, Short.MAX_VALUE)
                 .addComponent(salir)
@@ -185,8 +209,10 @@ public class InterfazEmpresa extends javax.swing.JFrame {
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         // TODO add your handling code here:
-        cs.updateCompany(c);
-        dispose();
+        Company cdb = cc.login(c);
+        cs.updateCompany(cdb);
+        ofertas.setText(cs.printJobOffers(cdb));
+
     }//GEN-LAST:event_updateActionPerformed
 
     private void deleteActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteActionPerformed
@@ -194,6 +220,25 @@ public class InterfazEmpresa extends javax.swing.JFrame {
         cs.removeCompany(c);
         dispose();
     }//GEN-LAST:event_deleteActionPerformed
+
+    private void mostrarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mostrarActionPerformed
+        // TODO add your handling code here:
+        try {
+//            long id = Long.parseLong(ofertaId.getText());
+//            MostrarCandidatos mc = new MostrarCandidatos(id);
+            String nombre = ofertaPuesto.getText();
+            MostrarCandidatos mc = new MostrarCandidatos(nombre);
+            mc.setVisible(true);
+            ofertaPuesto.setText("");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Id no válido", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_mostrarActionPerformed
+
+    private void ofertaPuestoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_ofertaPuestoMousePressed
+        // TODO add your handling code here:
+        ofertaPuesto.setText("");
+    }//GEN-LAST:event_ofertaPuestoMousePressed
 
     /**
      * @param args the command line arguments
@@ -233,15 +278,16 @@ public class InterfazEmpresa extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addLaboral;
     private javax.swing.JButton delete;
+    private javax.swing.JTextField desciption;
     private javax.swing.JTextField email;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JButton mostrar;
     private javax.swing.JTextField nombre;
+    private javax.swing.JTextField ofertaPuesto;
     private javax.swing.JTextArea ofertas;
     private javax.swing.JButton salir;
-    private javax.swing.JTextField telefono;
     private javax.swing.JButton update;
     // End of variables declaration//GEN-END:variables
 }

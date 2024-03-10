@@ -6,6 +6,7 @@ package interfaces;
 
 import com.entregablehibernate.controller.JobOffersController;
 import com.entregablehibernate.controller.UserController;
+import com.entregablehibernate.model.JobOffer;
 import com.entregablehibernate.model.User;
 import com.entregablehibernate.services.JobOffersService;
 import com.entregablehibernate.services.UserService;
@@ -15,11 +16,12 @@ import com.entregablehibernate.services.UserService;
  * @author jacqueline
  */
 public class BuscadorJob extends javax.swing.JFrame {
-
+    
     private JobOffersService jos = new JobOffersService();
     private User u;
     private UserController uc = new UserController();
-    JobOffersController joc= new JobOffersController();
+    JobOffersController joc = new JobOffersController();
+
     /**
      * Creates new form BuscadorJob
      */
@@ -134,10 +136,10 @@ public class BuscadorJob extends javax.swing.JFrame {
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:       
         String localidad = textLocalidad.getText();
-//        joc.getJobOfferByLocation(localidad);
-        jTextArea1.setText( joc.getJobOfferByLocation(localidad).toString());
-       
+        jTextArea1.setText(joc.getJobOfferByLocation(localidad).toString());
+        textLocalidad.setText("");
         
+
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void salirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_salirActionPerformed
@@ -147,9 +149,9 @@ public class BuscadorJob extends javax.swing.JFrame {
 
     private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
         // TODO add your handling code here:
-         String puesto = textPuesto.getText();
-//          joc.getJobOfferByTitle(puesto);
-           jTextArea1.setText(  joc.getJobOfferByTitle(puesto).toString());
+        String puesto = textPuesto.getText();
+        jTextArea1.setText(joc.getJobOfferByTitle(puesto).toString());
+        textPuesto.setText("");
     }//GEN-LAST:event_jButton2ActionPerformed
 
     /**

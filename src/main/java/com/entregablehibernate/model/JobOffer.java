@@ -42,7 +42,7 @@ public class JobOffer {
 //    @ManyToMany(mappedBy = "jobOfferList", cascade = CascadeType.ALL)//, cascade = CascadeType.PERSIST
 //    private List<Skill> skillsList = new ArrayList<>();
     
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.MERGE})
     @JoinColumn(name = "empresa_id")
     private Company company;
     
@@ -70,6 +70,16 @@ public class JobOffer {
     public JobOffer() {
     }
 
+    public JobOffer(String title, Company company, int maxSalary, int minSalary, int requiredCandidates, String location, String details) {
+        this.title = title;
+        this.company = company;
+        this.maxSalary = maxSalary;
+        this.minSalary = minSalary;
+        this.requiredCandidates = requiredCandidates;
+        this.location = location;
+        this.details = details;
+    }
+
     public JobOffer(String title, WorkDayType workDayType, boolean open, int maxSalary, int minSalary, int requiredCandidates, String location, String details) {
         this.title = title;
         this.workDayType = workDayType;
@@ -81,10 +91,9 @@ public class JobOffer {
         this.details = details;
     }
 
-    public JobOffer(String tittle, WorkDayType workDayType, List<Skill> skillsList, Company company, boolean open, int maxSalary, int minSalary, int requiredCandidates, String location, String details, List<Candidature> candidaturesList) {
+    public JobOffer(String tittle, WorkDayType workDayType, Company company, boolean open, int maxSalary, int minSalary, int requiredCandidates, String location, String details, List<Candidature> candidaturesList) {
         this.title = tittle;
         this.workDayType = workDayType;
-//        this.skillsList = skillsList;
         this.company = company;
         this.open = open;
         this.maxSalary = maxSalary;
@@ -150,14 +159,6 @@ public class JobOffer {
         this.workDayType = workDayType;
     }
 
-//    public List<Skill> getSkillsList() {
-//        return skillsList;
-//    }
-//
-//    public void setSkillsList(List<Skill> skillsList) {
-//        this.skillsList = skillsList;
-//    }
-
     public String getLocation() {
         return location;
     }
@@ -196,6 +197,12 @@ public class JobOffer {
 
     public void setOpen(boolean open) {
         this.open = open;
+    }
+
+    @Override
+    public String toString() {
+        return  " Empresa: " + company.getName() + "\n Puesto: " + title + "\n Contrato: " + workDayType + "\n Rango Salarial: " +minSalary+" - "+ maxSalary + 
+                "\n Número de vacantes: " + requiredCandidates + "\n Localidad: " + location + "\n Descripción: =" + details+ "\n";
     }
 
    

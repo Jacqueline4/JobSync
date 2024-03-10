@@ -104,4 +104,10 @@ public class Candidature {
     public void setJobOffer(JobOffer jobOffer) {
         this.jobOffer = jobOffer;
     }
+
+    @Override
+    public String toString() {
+        return "Candidato \n" + "Nombre: " + user.getName() + "\n Experiencia laboral: " + user.getLaboralExpList()+"\n Dirección e-mail: "+ user.getMail();
+    }
+    
 }

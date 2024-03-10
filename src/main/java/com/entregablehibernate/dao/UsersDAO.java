@@ -23,7 +23,7 @@ public interface UsersDAO {
 
     public User getUser(Long id);
 
-    public List<Skill> getUserSkills();
+    public List<Skill> getUserSkills(User u);
 
     public List<Candidature> getUserCandidatures(User u);
 

@@ -21,13 +21,14 @@ public class CompanyService {
     public void createCompany(Company co) {
         cc.createCompany(co);
     }
+
     public void updateCompany(Company co) {
-        Company codb=cc.login(co);
+        Company codb = cc.login(co);
         cc.updateCompany(codb);
     }
 
     public void removeCompany(Company co) {
-        Company codb=cc.login(co);
+        Company codb = cc.login(co);
         cc.removeCompany(codb);
     }
 
@@ -41,7 +42,7 @@ public class CompanyService {
     }
 
     public void addJobOffer(Company co, JobOffer jo) {
-        Company codb=cc.login(co);
+        Company codb = cc.login(co);
         jo.setCompany(codb);
         codb.getJobOffersList().add(jo);
         cc.updateCompany(codb);
@@ -52,17 +53,28 @@ public class CompanyService {
         cc.createCompany(co);
         return co;
     }
-       public boolean login(Company co) {
+
+    public boolean login(Company co) {
 
         Company dbCompany = cc.login(co);
         if (dbCompany != null) {
             if (co.getEmail().equals(dbCompany.getEmail()) && co.getPassword().equals(dbCompany.getPassword())) {
-                
+
                 return true;
             }
         }
         return false;
     }
 
-
+    public String printJobOffers(Company co) {
+//        Company codb = cc.login(co);
+        String informacion = "";
+        if (cc.getJobOffers(co) != null) {
+            List<JobOffer> joList = cc.getJobOffers(co);
+            for (JobOffer jo : joList) {
+                informacion += jo.toString();
+            }
+        }
+        return informacion;
+    }
 }

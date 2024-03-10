@@ -6,6 +6,7 @@ package interfaces;
 
 import com.entregablehibernate.controller.UserController;
 import com.entregablehibernate.model.User;
+import com.entregablehibernate.services.UserService;
 
 /**
  *
@@ -14,6 +15,7 @@ import com.entregablehibernate.model.User;
 public class CandidaturasIn extends javax.swing.JFrame {
 
     private User u;
+    private UserService us = new UserService();
     private UserController uc = new UserController();
 
     /**
@@ -22,8 +24,10 @@ public class CandidaturasIn extends javax.swing.JFrame {
     public CandidaturasIn(User u) {
         initComponents();
         this.u = u;
+        User udb = uc.login(u);
         
-        jTextArea1.setText(uc.getUserCandidatures(u).toString());
+        jTextArea1.setText(us.printCandidatures(udb));
+        
     }
 
     /**

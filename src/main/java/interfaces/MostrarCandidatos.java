@@ -4,17 +4,30 @@
  */
 package interfaces;
 
+import com.entregablehibernate.controller.JobOffersController;
+import com.entregablehibernate.model.JobOffer;
+import com.entregablehibernate.services.JobOffersService;
+
 /**
  *
  * @author jacqueline
  */
 public class MostrarCandidatos extends javax.swing.JFrame {
-
+    JobOffersService jos= new JobOffersService();
+    JobOffersController jc= new JobOffersController();
     /**
      * Creates new form MostrarCandidatos
      */
-    public MostrarCandidatos() {
+    public MostrarCandidatos(String nombre) {
         initComponents();
+        JobOffer jdb=null;
+        for (JobOffer object : jc.getJobOfferByTitle(nombre)) {
+             jdb= object;
+        }
+       
+        nombreOferta.setText(jdb.getTittle());
+        
+        jTextArea1.setText(jos.printCandidates(jdb));
     }
 
     /**

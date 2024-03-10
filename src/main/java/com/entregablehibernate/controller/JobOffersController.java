@@ -108,7 +108,7 @@ public class JobOffersController implements JobOffersDAO {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Candidature> query = cb.createQuery(Candidature.class);
             Root<Candidature> candidatureTable = query.from(Candidature.class);
-            Join<Candidature, JobOffer> jobOffTable = candidatureTable.join("candidaturesList");
+            Join<Candidature, JobOffer> jobOffTable = candidatureTable.join("jobOffer");
             query.where(cb.equal(jobOffTable, jo));
             return session.createQuery(query).getResultList();
         } catch (Exception e) {
@@ -154,6 +154,18 @@ public class JobOffersController implements JobOffersDAO {
             Root<JobOffer> jobOffTable = query.from(JobOffer.class);
             query.where(cb.equal(jobOffTable, id));
             return session.createQuery(query).getResultList();
+        } catch (Exception e) {
+            System.err.println(e);
+            return null;
+        }
+    }
+        public JobOffer getJobOfferById(Long id) {
+        try (Session session = HibernateUtil.getFactory().openSession()) {
+            CriteriaBuilder cb = session.getCriteriaBuilder();
+            CriteriaQuery<JobOffer> query = cb.createQuery(JobOffer.class);
+            Root<JobOffer> jobOffTable = query.from(JobOffer.class);
+            query.where(cb.equal(jobOffTable, id));
+            return session.createQuery(query).getSingleResult();
         } catch (Exception e) {
             System.err.println(e);
             return null;

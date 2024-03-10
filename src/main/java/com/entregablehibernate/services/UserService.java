@@ -141,8 +141,8 @@ public class UserService {
         return false;
     }
 
-    public String printLaboralExp() {
-        List<Object[]> experienciaLabUser = uc.getLaboralE();
+    public String printLaboralExp(User u) {
+        List<Object[]> experienciaLabUser = uc.getLaboralE(u);
         String informacion = "";
         for (Object[] objects : experienciaLabUser) {
             String nombreEmpresa = (String) objects[0];
@@ -159,8 +159,9 @@ public class UserService {
         }
         return informacion;
     }
-    public String printAcademic() {
-        List<Object[]> experienciaLabUser = uc.getAcademicIn();
+
+    public String printAcademic(User u) {
+        List<Object[]> experienciaLabUser = uc.getAcademicIn(u);
         String informacion = "";
         for (Object[] objects : experienciaLabUser) {
             String nombreInstitucion = (String) objects[0];
@@ -169,7 +170,7 @@ public class UserService {
             LocalDate fechaFin = (LocalDate) objects[3];
             Float desc = (Float) objects[4];
 
-            informacion += ("Razón social: " + nombreInstitucion + "\n");
+            informacion += ("Centro de Estudio: " + nombreInstitucion + "\n");
             informacion += ("Periodo: " + fechaInicio + " - " + fechaFin + "\n");
             informacion += ("Título: " + titulo + "\n");
             informacion += ("Puntuación: " + desc + "\n\n");
@@ -177,12 +178,32 @@ public class UserService {
         }
         return informacion;
     }
-        public String printSkills() {
-        List<Skill> skillList = uc.getUserSkills();
+
+    public String printSkills(User u) {
+        List<Skill> skillList = uc.getUserSkills(u);
         String informacion = "";
-            for (Skill skill : skillList) {
-                informacion+=skill+"\t";
-            }
+        for (Skill skill : skillList) {
+            informacion += skill + "\t";
+        }
+        return informacion;
+    }
+
+    public String printCandidatures(User u) {
+        List<Object[]> experienciaLabUser = uc.getCandida(u);
+        String informacion = "";
+        for (Object[] objects : experienciaLabUser) {
+            String nombreEmpresa = (String) objects[0];
+            String puesto = (String) objects[1];
+            Integer minSalary = (Integer) objects[2];
+            Integer maxSalary = (Integer) objects[3];
+            String dir = (String) objects[4];
+
+            informacion += ("Razón social: " + nombreEmpresa + "\n");
+            informacion += ("Rango salarial: " + minSalary + " - " + maxSalary + "\n");
+            informacion += ("Puesto: " + puesto + "\n");
+            informacion += ("Dirección: " + dir + "\n\n");
+
+        }
         return informacion;
     }
 }
