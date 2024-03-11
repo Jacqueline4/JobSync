@@ -5,6 +5,8 @@
 package com.entregablehibernate.services;
 
 import com.entregablehibernate.controller.CompanyController;
+import com.entregablehibernate.controller.JobOffersController;
+import com.entregablehibernate.model.Candidature;
 import com.entregablehibernate.model.Company;
 import com.entregablehibernate.model.JobOffer;
 import java.util.ArrayList;
@@ -17,6 +19,7 @@ import java.util.List;
 public class CompanyService {
 
     CompanyController cc = new CompanyController();
+    JobOffersController jc = new JobOffersController();
 
     public void createCompany(Company co) {
         cc.createCompany(co);
@@ -67,13 +70,33 @@ public class CompanyService {
     }
 
     public String printJobOffers(Company co) {
-//        Company codb = cc.login(co);
+        Company codb = cc.login(co);
         String informacion = "";
-        if (cc.getJobOffers(co) != null) {
-            List<JobOffer> joList = cc.getJobOffers(co);
-            for (JobOffer jo : joList) {
-                informacion += jo.toString();
-            }
+        List<Object[]> jobOfferCompany = cc.getJobOffers(codb);
+
+        for (Object[] objects : jobOfferCompany) {
+            String nombrePuesto = (String) objects[0];
+            int n = (Integer) objects[1];
+            String direccion = (String) objects[2];
+            String dellate = (String) objects[3];
+            long id = (Long) objects[4];
+
+            informacion += ("ID: " + id + "\n");
+            informacion += ("Puesto de: " + nombrePuesto + "\n");
+            informacion += ("Número de vacantes: " + n + "\n");
+            informacion += ("Localidad del puesto: " + direccion + "\n");
+            informacion += ("Detalles del puesto: " + dellate + "\n\n");
+
+        }
+
+        return informacion;
+    }
+
+    public String printCandidatesC(Company co, JobOffer jo) {
+        String informacion = "";
+        List<Candidature> l = cc.getCandidaturesByJobOffer(co, jo);
+        for (Candidature candidature : l) {
+            informacion+=candidature.toString();
         }
         return informacion;
     }

@@ -25,7 +25,7 @@ public interface JobOffersDAO {
 
     public List<JobOffer> getJobOfferBySkill(String skill);
 
-    public List<Candidature> getJobOfferCandidatures(JobOffer jo);
+    public List<Object[]> getJobOfferCandidatures(String nombrePuesto);
 
     public List<JobOffer> getJobOfferByLocation(String location);
 

@@ -32,41 +32,22 @@ public class JobOffersService {
         jc.removeJobOffer(jo);
     }
 
-//    public JobOffer createJobOffer(String s, Company co) {
-//
-//        jo.setTittle(s);
-//        jo.setCompany(co);
-////        jc.createJobOffer(jo);
-//        return jo;
-//    }
-
-//    public List<Candidature> getCandidaturesJobOffers(JobOffer jo) {
-//        List<Candidature> l = new ArrayList<>();
-//        l = jc.getJobOfferCandidatures(jo);
-//        return l;
-//    }
     public void createJobOffer(JobOffer jo) {
         jc.createJobOffer(jo);
     }
 
-    public String printCandidates(JobOffer jo) {
-        List<Candidature> l = jc.getJobOfferCandidatures(jo);
+    public String printCandidates(Company co,JobOffer jo) {
+        List<Object[]> userCandidates = jc.getJobOfferCandidatures(jo.getTittle());
         String informacion = "";
-        for (Candidature candidature : l) {
-            informacion += candidature.toString();
+        for (Object[] objects : userCandidates) {
+            String nombre = (String) objects[0];
+            String skills = (String) objects[1];
+
+            informacion += ("Nombre del candidato: " + nombre + "\n");           
+            informacion += ("Habilidades: " + skills + "\n\n");
         }
+
         return informacion;
     }
 
-//    public String printJob(String location) {
-//        List<JobOffer> joList = jc.getJobOfferByLocation(location);
-//        String informacion = "";
-//        for (JobOffer j : joList) {
-//            informacion += j + "\t";
-//        }
-//        return informacion;
-//    }
-//    public void addSkillJobOffer(JobOffer offer, Skill buenProgramador) {
-//        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
-//    }
 }

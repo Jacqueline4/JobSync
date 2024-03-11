@@ -43,7 +43,7 @@ public class CompanyController implements CompanyDAO {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<Candidature> query = cb.createQuery(Candidature.class);
             Root<Candidature> candidatureTable = query.from(Candidature.class);
-            Join<Candidature, JobOffer> jobOffTable = candidatureTable.join("candidaturesList");
+            Join<Candidature, JobOffer> jobOffTable = candidatureTable.join("jobOffer");
             Join<JobOffer, Company> companyTable = jobOffTable.join("company");
             //query.where(cb.and(cb.equal(companyTabla, company),cb.equal(jobOfferTabla, job)));
             query.where(cb.and(cb.equal(jobOffTable, jo), cb.equal(companyTable, company)));
@@ -116,17 +116,21 @@ public class CompanyController implements CompanyDAO {
     }
 
     @Override
-    public List<JobOffer> getJobOffers(Company company) {
+    public List<Object[]> getJobOffers(Company company) {
         try (Session session = HibernateUtil.getFactory().openSession()) {
             CriteriaBuilder cb = session.getCriteriaBuilder();
-            CriteriaQuery<JobOffer> query = cb.createQuery(JobOffer.class);
+            CriteriaQuery<Object[]> query = cb.createQuery(Object[].class);
             Root<Company> companyTable = query.from(Company.class);
-            Join<JobOffer, Company> jobOffTable = companyTable.join("jobOffersList");
+            Join<Company, JobOffer> jobOffTable = companyTable.join("jobOffersList");         
             query.where(cb.equal(companyTable, company));
+            query.multiselect(jobOffTable.get("title"),
+                    jobOffTable.get("requiredCandidates"),
+                    jobOffTable.get("location"),
+                    jobOffTable.get("details"),
+                    jobOffTable.get("id")
+            );
+
             return session.createQuery(query).getResultList();
-        } catch (Exception e) {
-            System.err.println(e);
-            return null;
         }
     }
 

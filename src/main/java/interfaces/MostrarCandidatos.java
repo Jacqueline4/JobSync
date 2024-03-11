@@ -4,8 +4,11 @@
  */
 package interfaces;
 
+import com.entregablehibernate.controller.CompanyController;
 import com.entregablehibernate.controller.JobOffersController;
+import com.entregablehibernate.model.Company;
 import com.entregablehibernate.model.JobOffer;
+import com.entregablehibernate.services.CompanyService;
 import com.entregablehibernate.services.JobOffersService;
 
 /**
@@ -13,21 +16,23 @@ import com.entregablehibernate.services.JobOffersService;
  * @author jacqueline
  */
 public class MostrarCandidatos extends javax.swing.JFrame {
-    JobOffersService jos= new JobOffersService();
-    JobOffersController jc= new JobOffersController();
+
+    JobOffersService jos = new JobOffersService();
+    JobOffersController jc = new JobOffersController();
+    CompanyService cs = new CompanyService();
+    CompanyController cc = new CompanyController();
+
     /**
      * Creates new form MostrarCandidatos
      */
-    public MostrarCandidatos(String nombre) {
+    public MostrarCandidatos( Company co,JobOffer jo) {
         initComponents();
-        JobOffer jdb=null;
-        for (JobOffer object : jc.getJobOfferByTitle(nombre)) {
-             jdb= object;
-        }
-       
-        nombreOferta.setText(jdb.getTittle());
-        
-        jTextArea1.setText(jos.printCandidates(jdb));
+
+        String info = cs.printCandidatesC(co, jo);
+
+        nombreOferta.setText("Candidatos para el puesto de " + jo.getTittle());
+
+        jTextArea1.setText(info);
     }
 
     /**

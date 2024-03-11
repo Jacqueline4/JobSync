@@ -21,7 +21,7 @@ public interface CompanyDAO {
 
     public void updateCompany(Company company);
 
-    public List<JobOffer> getJobOffers(Company company);
+    public List<Object[]> getJobOffers(Company company);
 
     public void removeCompany(Company company);
 

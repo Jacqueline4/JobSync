@@ -163,5 +163,11 @@ public class LaboralExperiece {
         this.company = company;
     }
 
+    @Override
+    public String toString() {
+        
+        return "Empresa: "+company.getName()+"\n Puesto: "+jobTitle+"\n Localidad: "+ location;
+    }
+
 
 }

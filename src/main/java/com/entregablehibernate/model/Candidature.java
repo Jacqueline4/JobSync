@@ -107,7 +107,12 @@ public class Candidature {
 
     @Override
     public String toString() {
-        return "Candidato \n" + "Nombre: " + user.getName() + "\n Experiencia laboral: " + user.getLaboralExpList()+"\n Dirección e-mail: "+ user.getMail();
+        String el="";
+        for (LaboralExperiece laboralExperiece :  user.getLaboralExpList()) {
+            el+=laboralExperiece.toString();
+        }
+        return "Candidato \n" + "Nombre: " + user.getName() + "\n Experiencia laboral: " +
+                el+"\n Dirección e-mail: "+ user.getMail()+"\n";
     }
     
 }

@@ -23,7 +23,10 @@ public class SkillIn extends javax.swing.JFrame {
     public SkillIn(User u) {
         initComponents();
         this.u = u;
+       
     }
+
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -40,6 +43,8 @@ public class SkillIn extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setBackground(new java.awt.Color(0, 153, 153));
+        setForeground(new java.awt.Color(0, 153, 153));
 
         textoHab.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
