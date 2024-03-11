@@ -51,9 +51,21 @@ public class BuscadorJob extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
+        textPuesto.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                textPuestoMousePressed(evt);
+            }
+        });
+
         jLabel1.setText("Puesto");
 
         jLabel2.setText("Localidad");
+
+        textLocalidad.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                textLocalidadMousePressed(evt);
+            }
+        });
 
         jButton1.setText("Buscar");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -90,9 +102,7 @@ public class BuscadorJob extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(salir)))
+                            .addComponent(salir))
                         .addGap(43, 43, 43))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -137,7 +147,7 @@ public class BuscadorJob extends javax.swing.JFrame {
         // TODO add your handling code here:       
         String localidad = textLocalidad.getText();
         jTextArea1.setText(joc.getJobOfferByLocation(localidad).toString());
-        textLocalidad.setText("");
+        
         
 
     }//GEN-LAST:event_jButton1ActionPerformed
@@ -151,8 +161,19 @@ public class BuscadorJob extends javax.swing.JFrame {
         // TODO add your handling code here:
         String puesto = textPuesto.getText();
         jTextArea1.setText(joc.getJobOfferByTitle(puesto).toString());
-        textPuesto.setText("");
+        
     }//GEN-LAST:event_jButton2ActionPerformed
+
+    private void textPuestoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textPuestoMousePressed
+        // TODO add your handling code here:
+        textPuesto.setText("");
+        
+    }//GEN-LAST:event_textPuestoMousePressed
+
+    private void textLocalidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textLocalidadMousePressed
+        // TODO add your handling code here:
+        textLocalidad.setText("");
+    }//GEN-LAST:event_textLocalidadMousePressed
 
     /**
      * @param args the command line arguments

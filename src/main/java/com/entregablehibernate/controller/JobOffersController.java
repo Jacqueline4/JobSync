@@ -80,7 +80,7 @@ public class JobOffersController implements JobOffersDAO {
             CriteriaBuilder cb = session.getCriteriaBuilder();
             CriteriaQuery<JobOffer> query = cb.createQuery(JobOffer.class);
             Root<JobOffer> jobOffTable = query.from(JobOffer.class);
-            query.where(cb.greaterThan(jobOffTable.get("title"), title));
+            query.where(cb.equal(jobOffTable.get("title"), title));
             return session.createQuery(query).getResultList();
         } catch (Exception e) {
             System.err.println(e);

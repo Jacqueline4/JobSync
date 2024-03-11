@@ -16,7 +16,7 @@
         
         <!-- a partir de aqui es opcional -->
         <property name="show_sql">true</property> <!-- autom. en false -->
-        <property name="hbm2ddl.auto">update</property>  <!-- puede ser create //update// validate //none -->
+        <property name="hbm2ddl.auto">create</property>  <!-- puede ser create //update// validate //none -->
 
         <mapping class="com.entregablehibernate.model.User"/>  
         <mapping class="com.entregablehibernate.model.Skill"/>
