@@ -104,6 +104,7 @@ public class UserService {
         User udb = uc.login(u);
         Candidature c = new Candidature();
         c.setJobOffer(jo);
+        c.setUser(udb);
         udb.getCandidaturesList().add(c);
         uc.updateUser(udb);
     }

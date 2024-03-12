@@ -111,8 +111,8 @@ public class Candidature {
         for (LaboralExperiece laboralExperiece :  user.getLaboralExpList()) {
             el+=laboralExperiece.toString();
         }
-        return "Candidato \n" + "Nombre: " + user.getName() + "\n Experiencia laboral: " +
-                el+"\n Dirección e-mail: "+ user.getMail()+"\n";
+        return "Candidato \n" + "Nombre: " + user.getName() + "\n Experiencia laboral: \n" +
+                el+"\n Dirección e-mail: "+ user.getMail()+"\n\n";
     }
     
 }

@@ -10,16 +10,19 @@ import com.entregablehibernate.model.JobOffer;
 import com.entregablehibernate.model.User;
 import com.entregablehibernate.services.JobOffersService;
 import com.entregablehibernate.services.UserService;
+import javax.swing.JOptionPane;
 
 /**
  *
  * @author jacqueline
  */
 public class BuscadorJob extends javax.swing.JFrame {
-    
+
     private JobOffersService jos = new JobOffersService();
     private User u;
     private UserController uc = new UserController();
+    UserService us = new UserService();
+    JobOffersController jc = new JobOffersController();
     JobOffersController joc = new JobOffersController();
 
     /**
@@ -48,6 +51,8 @@ public class BuscadorJob extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         salir = new javax.swing.JButton();
         jButton2 = new javax.swing.JButton();
+        inscribirse = new javax.swing.JButton();
+        idOferta = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -92,6 +97,26 @@ public class BuscadorJob extends javax.swing.JFrame {
             }
         });
 
+        inscribirse.setText("Inscribirse");
+        inscribirse.setActionCommand("");
+        inscribirse.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                inscribirseActionPerformed(evt);
+            }
+        });
+
+        idOferta.setText("Introduce el id de la oferta");
+        idOferta.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                idOfertaMousePressed(evt);
+            }
+        });
+        idOferta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idOfertaActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -100,25 +125,31 @@ public class BuscadorJob extends javax.swing.JFrame {
                 .addGap(25, 25, 25)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(salir))
-                        .addGap(43, 43, 43))
+                        .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(textLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(textLocalidad, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(30, 30, 30)
-                                .addComponent(textPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                        .addGap(74, 74, 74)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jButton2)
-                            .addComponent(jButton1))
-                        .addGap(101, 101, Short.MAX_VALUE))))
+                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 122, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(30, 30, 30)
+                        .addComponent(textPuesto, javax.swing.GroupLayout.PREFERRED_SIZE, 206, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(74, 74, 74)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jButton2)
+                    .addComponent(jButton1))
+                .addGap(101, 101, Short.MAX_VALUE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addContainerGap(150, Short.MAX_VALUE)
+                        .addComponent(idOferta, javax.swing.GroupLayout.PREFERRED_SIZE, 336, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
+                        .addComponent(inscribirse))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, layout.createSequentialGroup()
+                        .addGap(253, 253, 253)
+                        .addComponent(salir)
+                        .addGap(0, 0, Short.MAX_VALUE)))
+                .addGap(43, 43, 43))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -134,8 +165,12 @@ public class BuscadorJob extends javax.swing.JFrame {
                     .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jButton1))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 278, Short.MAX_VALUE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 276, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(inscribirse)
+                    .addComponent(idOferta, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
                 .addComponent(salir)
                 .addGap(15, 15, 15))
         );
@@ -147,8 +182,7 @@ public class BuscadorJob extends javax.swing.JFrame {
         // TODO add your handling code here:       
         String localidad = textLocalidad.getText();
         jTextArea1.setText(joc.getJobOfferByLocation(localidad).toString());
-        
-        
+
 
     }//GEN-LAST:event_jButton1ActionPerformed
 
@@ -161,19 +195,43 @@ public class BuscadorJob extends javax.swing.JFrame {
         // TODO add your handling code here:
         String puesto = textPuesto.getText();
         jTextArea1.setText(joc.getJobOfferByTitle(puesto).toString());
-        
+
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void textPuestoMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textPuestoMousePressed
         // TODO add your handling code here:
         textPuesto.setText("");
-        
+
     }//GEN-LAST:event_textPuestoMousePressed
 
     private void textLocalidadMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textLocalidadMousePressed
         // TODO add your handling code here:
         textLocalidad.setText("");
     }//GEN-LAST:event_textLocalidadMousePressed
+
+    private void inscribirseActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_inscribirseActionPerformed
+        // TODO add your handling code here:
+        try {
+            long id = Long.parseLong(idOferta.getText());
+//            Company cdb = cc.login(c);
+            JobOffer jodb = jc.getJobOfferById(id);
+//            User udb = uc.login(u);
+            us.addCandidature(u, jodb);
+            JOptionPane.showMessageDialog(null, "Inscripción exitosa", "Información", JOptionPane.INFORMATION_MESSAGE);
+            idOferta.setText("");
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(null, "Id no válido", "ERROR", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_inscribirseActionPerformed
+
+    private void idOfertaMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_idOfertaMousePressed
+        // TODO add your handling code here:
+        idOferta.setText("");
+    }//GEN-LAST:event_idOfertaMousePressed
+
+    private void idOfertaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idOfertaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_idOfertaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -211,6 +269,8 @@ public class BuscadorJob extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField idOferta;
+    private javax.swing.JButton inscribirse;
     private javax.swing.JButton jButton1;
     private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;

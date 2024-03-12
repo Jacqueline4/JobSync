@@ -28,7 +28,7 @@ public class Main {
         JobOffer jo = new JobOffer();
         jo.setTittle("ADM");
         Company co = cs.createCompany("patata", "");
-        cs.addJobOffer(co, jo);
+//        cs.addJobOffer(co, jo);
         User u = new User("monete", 0, "123", "m");
         User u1 = new User("alex", 0, "123", "a");
         User u2 = new User("raul", 0, "123", "r");
@@ -51,7 +51,7 @@ public class Main {
         us.addAcademicInfo(u, ai);
         us.addAcademicInfo(u1, ai);
         us.addAcademicInfo(u, ai, i);
-        us.addCandidature(u, c);
+//        us.addCandidature(u, c);
         us.addCandidature(u, c1);
         us.addCandidature(u1, c1);
         us.addCandidature(u2, c1);

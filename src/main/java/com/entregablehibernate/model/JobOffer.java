@@ -201,7 +201,7 @@ public class JobOffer {
 
     @Override
     public String toString() {
-        return  " Empresa: " + company.getName() + "\n Puesto: " + title + "\n Contrato: " + workDayType + "\n Rango Salarial: " +minSalary+" - "+ maxSalary + 
+        return  " ID: "+id+"\n Empresa: " + company.getName() + "\n Puesto: " + title + "\n Contrato: " + workDayType + "\n Rango Salarial: " +minSalary+" - "+ maxSalary + 
                 "\n Número de vacantes: " + requiredCandidates + "\n Localidad: " + location + "\n Descripción: =" + details+ "\n";
     }
 
